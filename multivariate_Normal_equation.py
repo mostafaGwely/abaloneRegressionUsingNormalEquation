@@ -25,10 +25,9 @@ le=LabelEncoder()
 le.fit(np.unique(df['sex']))
 df.sex=le.transform(df.sex)
 
-
-df.loc[df['height'] == 0, 'height'] = new_val= df['height'].mean()
-
-df.loc[df['height'] == 0, 'height'] = new_val = df['height'].mean()
+#the height == 0 it doesn't make sense... right so fill it with the mean value 
+df.loc[df['height'] == 0, 'height'] =df['height'].mean()
+df.loc[df['height'] == 0, 'height'] =df['height'].mean()
 
 
 x = df.loc[:, df.columns != 'rings']
