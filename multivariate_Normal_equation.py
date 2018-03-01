@@ -28,10 +28,10 @@ le=LabelEncoder()
 le.fit(np.unique(df['sex']))
 df.sex=le.transform(df.sex)
 
-# it doesn't make scense when weight == 0 or height == 0 or ...... except sex 
-for o in names:
-    if o != 'sex':
-        df = df[df[o]>0]
+
+df.loc[df['height'] == 0, 'height'] = new_val= df['height'].mean()
+
+df.loc[df['height'] == 0, 'height'] = new_val = df['height'].mean()
 
 
 x = df.loc[:, df.columns != 'rings']
@@ -49,7 +49,7 @@ minmax_scaler = preprocessing.MinMaxScaler(feature_range=(0,1))
 new_x = minmax_scaler.fit_transform(new_x)
 
 
-x_train, x_test, y_train, y_test = train_test_split( new_x,y, test_size=.33, random_state=42)
+x_train, x_test, y_train, y_test = train_test_split( new_x,y, test_size=.33, random_state=42,shuffle=False)
 
 
 designeMatrix = np.ones((x_train.shape[0],x_train.shape[1]+1))
