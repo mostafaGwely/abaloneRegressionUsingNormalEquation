@@ -31,10 +31,10 @@ le=LabelEncoder()
 le.fit(np.unique(df['sex']))
 df.sex=le.transform(df.sex)
 
+#height = 0 does't make sense so :
+df.loc[df['height'] == 0, 'height'] = df['height'].mean()
 
-df.loc[df['height'] == 0, 'height'] = new_val= df['height'].mean()
-
-df.loc[df['height'] == 0, 'height'] = new_val = df['height'].mean()
+df.loc[df['height'] == 0, 'height']  = df['height'].mean()
 
 
 x = df.loc[:, df.columns != 'rings']
@@ -78,11 +78,10 @@ for ii in lambda_reg_values :
     test_rmse1 =np.sqrt(np.sum((result-y_test)**2)/len(result))
     error.append(test_rmse1[0])
 
-#pylab.plot(lambda_reg_values,error)
-#pylab.figure('2',figsize=(8, 6),dpi=100)
-#pylab.plot(np.arange(y_test.shape[0]),y_test,'r--',alpha=0.9)
-#
-#pylab.plot(np.arange(y_test.shape[0]),result, alpha=0.5)
+pylab.plot(lambda_reg_values,error)
+pylab.figure('2',figsize=(8, 6),dpi=100)
+pylab.plot(np.arange(y_test.shape[0]),y_test,'r--',alpha=0.8)
+pylab.plot(np.arange(y_test.shape[0]),result, alpha=0.5)
 
 print("rmse using normal equation : ",min(error))
 print("lambda : ",lambda_reg_values[error.index(min(error))])
