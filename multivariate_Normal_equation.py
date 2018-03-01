@@ -8,10 +8,7 @@ from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split 
 import pylab
-from sklearn.metrics import mean_squared_error
 from sklearn import ensemble
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.neighbors import KNeighborsClassifier
 
 
 #read the data 
