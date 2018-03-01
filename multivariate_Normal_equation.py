@@ -1,3 +1,5 @@
+import time 
+t1 = time.time()
 import numpy as np 
 from sklearn.preprocessing import PolynomialFeatures
 
@@ -8,7 +10,11 @@ from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split 
 import pylab
+from sklearn.metrics import mean_squared_error
 from sklearn import ensemble
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.neighbors import KNeighborsClassifier
+
 
 
 #read the data 
@@ -25,9 +31,10 @@ le=LabelEncoder()
 le.fit(np.unique(df['sex']))
 df.sex=le.transform(df.sex)
 
-#the height == 0 it doesn't make sense... right so fill it with the mean value 
-df.loc[df['height'] == 0, 'height'] =df['height'].mean()
-df.loc[df['height'] == 0, 'height'] =df['height'].mean()
+
+df.loc[df['height'] == 0, 'height'] = new_val= df['height'].mean()
+
+df.loc[df['height'] == 0, 'height'] = new_val = df['height'].mean()
 
 
 x = df.loc[:, df.columns != 'rings']
@@ -53,7 +60,7 @@ for i in range(x_train.shape[1]):
     designeMatrix[:,i+1] = x_train[:,i]
     
 
-lambda_reg_values = np.linspace(-1,1,1000)
+lambda_reg_values = np.linspace(-.006,.1,10)
 error = [] 
 for ii in lambda_reg_values :
     g= ii *np.identity(166)
@@ -71,15 +78,15 @@ for ii in lambda_reg_values :
     test_rmse1 =np.sqrt(np.sum((result-y_test)**2)/len(result))
     error.append(test_rmse1[0])
 
-pylab.plot(lambda_reg_values,error)
-pylab.figure('2',figsize=(8, 6),dpi=100)
-pylab.plot(np.arange(y_test.shape[0]),y_test,'r--',alpha=0.9)
+#pylab.plot(lambda_reg_values,error)
+#pylab.figure('2',figsize=(8, 6),dpi=100)
+#pylab.plot(np.arange(y_test.shape[0]),y_test,'r--',alpha=0.9)
+#
+#pylab.plot(np.arange(y_test.shape[0]),result, alpha=0.5)
 
-pylab.plot(np.arange(y_test.shape[0]),result, alpha=0.5)
-
-print("normal equation : ",min(error))
+print("rmse using normal equation : ",min(error))
 print("lambda : ",lambda_reg_values[error.index(min(error))])
-
+print("computation time : ",time.time()-t1," sec")
 
 
 
